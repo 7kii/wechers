@@ -1,16 +1,28 @@
 # -*- coding: utf-8 -*-
-import other
-import face
-import piccut
-import film
+import re
+import urllib.request
 
-fucList = [face, piccut, film, other]
-
-def getall():
-	fucMenu = '-----功能列表-----'
-	i = 1;
-	for fuc in fucList:
-		if fuc.show():
-			fucMenu += '\n' + str(i) + ' : ' + fuc.getFunInfo()
-			i = i + 1
-	return fucMenu
+def createMenu():  
+    #未认证不支持
+    url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=9eAhCuIkyQbRWTXtLjgQ8vFSyWbapUHbClWZ2SwFivIu7Rfjg2IoYX-g_tzhyKWdqI7JmKy0Mf4bcqwsw6YyGowUJvgvcRT9NV9yLR4E1CxyOMKqb6qkQdZFEc38oFoYBNJbAAAEQM"  
+    values = {
+        "button":[
+        {
+            "type":"pic_photo_or_album",
+            "name":"人脸年龄识别",
+            "key": "rselfmenu_0_0"
+        }],
+        "button":[
+        {
+            "type":"view",
+            "name":"搜索说明",
+            "url":"http://mp.weixin.qq.com/mp/homepage?__biz=MzI3MjIxNTI4Nw==&hid=1&sn=1bfe4dc0744e0f5e1df172ba72cad316#wechat_redirect"
+        }]
+    }
+      
+    data = urllib.parse.urlencode(values).encode('utf-8')
+    req = urllib.request.Request(url=url,data=data,method="POST")
+    response = urllib.request.urlopen(req)
+    result = response.read().decode('utf8')
+    print(result)
+    return result

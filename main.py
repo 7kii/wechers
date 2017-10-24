@@ -5,6 +5,7 @@ import os
 import time
 import lxml
 from lxml import etree
+import service
 import menu
 import face
 import piccut
@@ -21,7 +22,7 @@ class main:
 		self.app_root = os.path.dirname(__file__)
 		self.templates_root = os.path.join(self.app_root, 'templates')
 		self.render = web.template.render(self.templates_root)
-		self.token = 'kisss' #请按照公众平台官网\基本配置中信息填写
+		self.token = 'kissss' #请按照公众平台官网\基本配置中信息填写
 		self.AESKey = 'IBh2noM7QdzVBlbI2wklvggEWXM9vYzXGDSIHMQErIr'
 
 	def GET(self):
@@ -43,6 +44,7 @@ class main:
 
 			print("handle/GET func: hashcode: "+ hashcode +" signature: "+ signature)
 			if hashcode == signature:
+				#menu.createMenu()
 				return echostr
 			else:
 				return ""
@@ -75,7 +77,7 @@ class main:
 				reslist = film.searchFilm(content)
 				return self.render.reply_text(fromUser, toUser, int(time.time()), reslist)
 			else:
-				infos = menu.getall()
+				infos = service.getallService()
 				return self.render.reply_text(fromUser, toUser, int(time.time()), infos)
 		elif msgType == 'image':
 			picurl = xml.find('PicUrl').text

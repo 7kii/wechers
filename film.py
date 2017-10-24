@@ -18,7 +18,7 @@ def parsePara(content):
 def searchFilm(content):
 	res = ''
 	paraValue = parsePara(content)
-	if paraValue != '':
+	if paraValue != '' and paraValue != ' ' and paraValue != '  ':
 		try:
 			sql = 'select distinct(name), score, actor, introduce, udownload, upassword, uonlineshort from filminfo where name like "%%%%%s%%%%" or actor like "%%%%%s%%%%" and status = 0'  % (paraValue,paraValue)
 			db = tmysql.Mysql()
@@ -36,7 +36,7 @@ def searchFilm(content):
 				for film in resfilm:
 					res += '\n' + '=======资源' + str(i) + '=======\n【片名】\n' + film['name'] + '\n【评分】\n' + film['score']
 					if more:
-						res += '\n【主演】\n' + film['actor'] + '\n【简介】\n' + film['introduce'] 
+						res += '\n【主演】\n' + film['actor'] + '\n【剧情】\n' + film['introduce'] 
 					if film['uonlineshort'] != '':
 						res += '\n【在线观看】\n' + film['uonlineshort']
 					if film['udownload'] != '':
@@ -50,9 +50,9 @@ def searchFilm(content):
 				res += '\n=================\n【复制磁力链接，迅雷或其他下载器新建任务即可下载】'
 				res += '\n【在线观看地址需复制用浏览器打开】'
 			else:
-				res = '抱歉，暂未查到相关信息，敬请留言，会及时补充，求关注！！'
+				res = '抱歉，暂未查到相关信息，敬请留言，周末更新，求关注'
 		except Exception as e:
-			res = '抱歉，暂未查到相关信息，敬请留言，会及时补充，求关注！！'
+			res = '抱歉，暂未查到相关信息，敬请留言，周末更新，求关注'
 			return res
 	else:
 		res = '请输入 dy关键字 查询'

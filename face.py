@@ -4,7 +4,7 @@ import urllib.request
 import re
 
 fenable = True
-introduce = '人脸识别：请发送图片'
+introduce = '年龄检测：请发送图片'
 
 def show():
 	return fenable
