@@ -10,6 +10,7 @@ import menu
 import face
 import piccut
 import film
+import wzry
 
 urls = (
     '/', 'main'
@@ -75,6 +76,9 @@ class main:
 				'''
 			if content.lower().startswith(film.keywords):
 				reslist = film.searchFilm(content)
+				return self.render.reply_text(fromUser, toUser, int(time.time()), reslist)
+			elif content.lower().startswith(wzry.keywords):
+				reslist = wzry.searchAnswer(content)
 				return self.render.reply_text(fromUser, toUser, int(time.time()), reslist)
 			else:
 				infos = service.getallService()

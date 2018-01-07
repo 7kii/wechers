@@ -20,7 +20,7 @@ def searchFilm(content):
 	paraValue = parsePara(content)
 	if paraValue != '' and paraValue != ' ' and paraValue != '  ':
 		try:
-			sql = 'select distinct(name), score, actor, introduce, udownload, upassword, uonlineshort from filminfo where name like "%%%%%s%%%%" or actor like "%%%%%s%%%%" and status = 0'  % (paraValue,paraValue)
+			sql = 'select distinct(name), score, actor, introduce, udownload, upassword, uonlineshort from filminfo where name like "%%%%%s%%%%" or actor like "%%%%%s%%%%" and status = 0 ORDER BY date desc'  % (paraValue,paraValue)
 			db = tmysql.Mysql()
 			resfilm = db.getAll(sql)
 			more = False
@@ -36,7 +36,8 @@ def searchFilm(content):
 				for film in resfilm:
 					res += '\n' + '=======资源' + str(i) + '=======\n【片名】\n' + film['name'] + '\n【评分】\n' + film['score']
 					if more:
-						res += '\n【主演】\n' + film['actor'] + '\n【剧情】\n' + film['introduce'] 
+						#res += '\n【主演】\n' + film['actor']
+						res += '\n【剧情】\n' + film['introduce'] 
 					if film['uonlineshort'] != '':
 						res += '\n【在线观看】\n' + film['uonlineshort']
 					if film['udownload'] != '':
